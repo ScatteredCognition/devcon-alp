@@ -12,9 +12,15 @@ RUN curl -fsSL \
     -o /usr/local/bin/host-spawn
 
 # copy setup scripts
-COPY setup/setup-java /usr/local/bin/
-COPY setup/setup-rust /usr/local/bin/
+COPY scripts/devcon-help /usr/local/bin/
+COPY scripts/setup-java /usr/local/bin/
+COPY scripts/setup-rust /usr/local/bin/
+COPY scripts/jvrn /usr/local/bin/
 RUN chmod +x /usr/local/bin/*
+
+# copy configs
+RUN mkdir -p /etc/fish/functions/
+COPY configs/greet.fish /etc/fish/functions/
     
 # Switch to user
 #USER root

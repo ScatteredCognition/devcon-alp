@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+echo "-> List of setups"
+echo "sudo setup-java : Setup OpenJDK 8"
+echo "sudo setup-rust : Setup rust toolchain via official rustup tool (user)"
+echo ""
+echo "-> List of helpers"
+echo "jvrn task01 task02 task03 ... : Compile and run specified files with .java extensions"
