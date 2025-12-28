@@ -1,4 +1,5 @@
 function fish_greeting
-    echo "Current user: $USER"
+    pfetch-rs
+    echo "User: $USER | Shell: $SHELL"
     echo "Run 'devcon-help' for available helpers"
 end

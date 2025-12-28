@@ -4,7 +4,8 @@ FROM mcr.microsoft.com/devcontainers/base:alpine
 # Install the basics
 RUN apk add --no-cache \
     bash bash-completion fish \
-    git openssh-client curl
+    git openssh-client curl \
+    pfetch-rs
 
 # Install host-spawn
 RUN curl -fsSL \
