@@ -3,5 +3,7 @@ for file in "$@"; do
     if javac "$file"; then
         java $(basename "$file" .java)
         rm -f "$file".class
+        echo "Press any key to continue."
+        read -n 1 -s _
     fi 
 done
