@@ -1,6 +1,12 @@
 # Image
 FROM docker.io/library/alpine:latest
 
+# copy setup scripts and precompiled programs
+COPY scripts/* bins/* /usr/local/bin/
+
+# copy configs
+COPY configs/greet.fish /etc/fish/conf.d/
+
 # Install the basics
 RUN apk add --no-cache \
     bash bash-completion fish \
@@ -8,16 +14,7 @@ RUN apk add --no-cache \
     pfetch-rs
 
 # Install host-spawn
-RUN curl -fsSL \
-    https://github.com/1player/host-spawn/releases/latest/download/host-spawn-x86_64 \
-    -o /usr/local/bin/host-spawn
+#RUN curl -fsSL https://github.com/1player/host-spawn/releases/latest/download/host-spawn-x86_64 -o /usr/local/bin/host-spawn
 
-# copy setup scripts
-COPY scripts/* /usr/local/bin/
-#RUN chmod +x /usr/local/bin/* #increases container size
-
-# copy configs
-COPY configs/greet.fish /etc/fish/conf.d/
-    
 # Switch to user
 #USER root
