@@ -20,7 +20,7 @@ RUN chmod +x /usr/local/bin/*
 
 # copy configs
 RUN mkdir -p /etc/fish/functions/
-COPY configs/greet.fish /etc/fish/functions/
+COPY configs/greet.fish /etc/fish/conf.d/
     
 # Switch to user
 #USER root
