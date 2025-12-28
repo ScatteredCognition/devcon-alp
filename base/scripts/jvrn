@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 for file in "$@"; do
-    if javac "$file".java; then
-        java "$file"
+    if javac "$file"; then
+        java $(basename "$file" .java)
         rm -f "$file".class
     fi 
 done
