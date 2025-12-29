@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 echo "Current directory: $(pwd)"
+VARIANT="base"
 rm -rf .devcontainer
-cp -r "./devcontainers/$1/" ./.devcontainer/
+cp -r "./devcontainers/$VARIANT/" ./.devcontainer/

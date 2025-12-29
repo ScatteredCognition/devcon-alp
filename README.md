@@ -1,21 +1,41 @@
-# devcontainers
-Personal devcontainer configs of `ScatteredCognition`
-To use, run the following command in your project's root directory depending on which devcontainer you want.
+# devcon-alp
+Personal Alpine Linux devcontainer config of `ScatteredCognition`
 
-## Base
+## Using the image
+To use this devcontainer image, run the following commands in your project's root, then create the devcontainer as you normally would using VSCode/DevPods.  
+
 ```bash
-git submodule add 'https://github.com/ScatteredCognition/devcontainers.git'
-chmod +x ./devcontainers/setup.sh && ./devcontainers/setup.sh base
+git submodule add 'https://github.com/ScatteredCognition/devcon-alp.git'
+chmod +x ./devcon-alp/setup.sh && ./devcon-alp/setup.sh
 ```
 
-## Java 8
-- In the created container, run:
-```bash
-setup-java
-```
+## Details
+- Uses the [docker.io/library/alpine:latest](https://hub.docker.com/_/alpine/) image as a base  
+- Size is around 50MB~  
+- Uses the `fish` shell as default
+- Included packages
+    <!-- - `doas` w/ sudo shim 
+        - paswordless root access enabled for users in `wheel` group
+    - `shadow` -->
+    - `fish`
+    - `git`
+    - `curl`
+    - `pfetch-rs`
+    - `host-spawn` (symlinked to `hpwn`)
 
-## Rust
-- In the created container, run:
-```bash
-setup-rust
-```
+> NOTE: All Environment Variables for different utilities are configured for the `fish` shell
+
+## Helper tools
+- `devcon-help`:
+    - displays available helper tools
+- `setup-java`: 
+    - installs `openjdk8` package
+    - will make it configurable at a later date
+- `setup-rust`:
+    - installs `build-base` and `rustup` packages
+    - sets `RUSTUP_HOME` to `/rustup`
+    - sets `CARGO_HOME` to `/cargo`
+    - adds `$CARGO_HOME/bin` to `$PATH`
+    - launches `rustup-init --no-modify-path`
+- `jvrn`:
+    - simple wrapper that compiles and runs `.java` files and cleans up compiled `.class` files afterwards

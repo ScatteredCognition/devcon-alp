@@ -4,4 +4,4 @@ function fish_greeting
     echo "Run 'devcon-help' for available helpers"
 end
 
-set -gx fish_history ""
+set -Ux fish_history ""

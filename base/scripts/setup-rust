@@ -1,3 +1,11 @@
 #!/usr/bin/env fish
 apk add --no-cache curl build-base rustup
-fish_add_path ~/.cargo/bin
+
+mkdir -p /rustup
+mkdir -p /cargo/bin
+
+set -Ux RUSTUP_HOME "/rustup"
+set -Ux CARGO_HOME "/cargo"
+fish_add_path -UP "$CARGO_HOME/bin"
+
+rustup-init --no-modify-path
