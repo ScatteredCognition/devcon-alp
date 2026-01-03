@@ -1,6 +1,6 @@
 {
   "name": "Alpine Devcontainer - Base (GHCR)",
-  "image": "ghcr.io/faeizmahrus/devcon-alp:latest",
+  "image": "ghcr.io/scatteredcognition/devcon-alp:latest",
   "customizations": {
     "vscode": {
       "settings": {
