@@ -1,23 +1,31 @@
 name: 'build and push devcon to ghcr' 
+env:
+  REGISTRY: "ghcr.io" # registry name
+  USER_NAME: "scatteredcognition" # should be all lowercase
+  CON_NAME: "devcon-alp" # what name to publish container under
+  # current config results in: ghcr.io/scatteredcognition/devcon-alp
+
 on:
   schedule:
     - cron: '0 0 * * 5'  # rebuild every friday at midnight UTC
-  push: # rebuild on main branch pushes
+  push:
     branches:
-      - main
+      - main  # rebuild on main branch pushes
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
+    permissions: # grant permissions to read repo and push to ghcr
       contents: read
       packages: write
 
     steps:
 
+      # checkout git repo
       - name: Checkout (GitHub)
         uses: actions/checkout@v3
 
+      # Login to GHCR
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2 
         with:
@@ -25,12 +33,14 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Enable OCI builds with docker
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # Run devcontainer task
       - name: Build and run Dev Container task
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ghcr.io/scatteredcognition/devcon-alp
-          platform: linux/amd64
-          configFile: src/devcontainer.json
+          imageName: ${{ env.REGISTRY }}/${{ env.USER_NAME }}/${{ env.CON_NAME }} # name of the image
+          platform: linux/amd64 # only for amd64 linux
+          configFile: src/devcontainer.json # build image from source
