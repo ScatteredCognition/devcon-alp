@@ -6,5 +6,7 @@ for file in "$@"; do
         echo "Compiled and ran $file"
         echo "Press any key to continue."
         read -n 1 -s _
+    else
+        echo "Error during compiling $file"
     fi 
 done

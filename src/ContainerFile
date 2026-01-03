@@ -6,19 +6,23 @@ FROM docker.io/library/alpine:latest
 # create vscode user
 ## reference: https://github.com/devcontainers/images/blob/main/src/base-alpine/.devcontainer/devcontainer.json
 ## reference: https://github.com/devcontainers/features/tree/main/src/common-utils
-#RUN addgroup -g 1000 -S wheel && \
-#    adduser -u 1000 -G wheel vscode
+RUN addgroup -S wheel && \
+    addgroup -g 1000 vscode && \
+    adduser -u 1000 -G vscode vscode && \
+    addgroup vscode wheel && \
+    groups vscode
 
 # install and configure passwordless doas for :wheel
 # also shadow package
-#RUN apk add --no-cache doas doas-sudo-shim shadow
-#COPY configs/doas.conf /etc/
+RUN apk add --no-cache doas doas-sudo-shim shadow
+COPY configs/doas.conf /etc/
 
 # copy setup scripts and precompiled programs
 COPY scripts/* /usr/local/bin/
 
 # copy configs
 COPY configs/customshi.fish /etc/fish/conf.d/
+COPY configs/rust-path.fish.bak /etc/fish/conf.d/
 
 # Install the basics
 RUN apk add --no-cache fish git curl pfetch-rs

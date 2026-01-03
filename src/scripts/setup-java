@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+if [ "$(id -u)" -eq 0 ]; then
+    echo "Running as root."
+else
+    echo "Please run this command using doas or sudo."
+    exit 0
+fi
+
+apk add --no-cache openjdk8
