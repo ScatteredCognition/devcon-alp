@@ -25,11 +25,10 @@ RUN { addgroup -S wheel || true; } && \
     groups vscode
 
 # install and configure passwordless doas for :wheel
-# also shadow package
-RUN apk add --no-cache doas doas-sudo-shim shadow
+RUN apk add --no-cache doas doas-sudo-shim
 
 # Install the basics
-RUN apk add --no-cache fish git curl nano micro pfetch-rs
+RUN apk add --no-cache fish git curl nano pfetch-rs
 
 # Install host-spawn
 RUN curl -fsSL https://github.com/1player/host-spawn/releases/latest/download/host-spawn-x86_64 \
