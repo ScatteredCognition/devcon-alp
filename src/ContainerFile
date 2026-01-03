@@ -1,13 +1,25 @@
 # Image
 FROM docker.io/library/alpine:latest
 
-#doas access/config and vscode user creation is disabled cuz we don need that cuh
+# copy setup scripts and precompiled programs
+# always chmod +x the scripts locally
+# chmod +x in the dockerfile bloats the image size
+COPY scripts/* /usr/local/bin/
+
+# copy configs
+# doas.conf is for doas
+# customshi.fish is for generic fish config
+# rust-path.fish.bak is for setup-rust
+COPY configs/doas.conf /etc/
+COPY configs/customshi.fish /etc/fish/conf.d/
+COPY configs/rust-path.fish.bak /etc/fish/conf.d/
 
 # create vscode user
 ## reference: https://github.com/devcontainers/images/blob/main/src/base-alpine/.devcontainer/devcontainer.json
 ## reference: https://github.com/devcontainers/features/tree/main/src/common-utils
-#RUN addgroup -S wheel
-RUN addgroup -g 1000 vscode && \
+
+RUN { addgroup -S wheel || true; } && \
+    addgroup -g 1000 vscode && \
     adduser -u 1000 -G vscode -D vscode && \
     addgroup vscode wheel && \
     groups vscode
@@ -15,14 +27,6 @@ RUN addgroup -g 1000 vscode && \
 # install and configure passwordless doas for :wheel
 # also shadow package
 RUN apk add --no-cache doas doas-sudo-shim shadow
-COPY configs/doas.conf /etc/
-
-# copy setup scripts and precompiled programs
-COPY scripts/* /usr/local/bin/
-
-# copy configs
-COPY configs/customshi.fish /etc/fish/conf.d/
-COPY configs/rust-path.fish.bak /etc/fish/conf.d/
 
 # Install the basics
 RUN apk add --no-cache fish git curl nano micro pfetch-rs
