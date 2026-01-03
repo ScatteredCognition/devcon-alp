@@ -3,11 +3,11 @@ Personal Alpine Linux devcontainer config of `ScatteredCognition`
 
 ## Using the image
 To use this devcontainer image, run the following commands in your project's root, then create the devcontainer as you normally would using VSCode/DevPods.  
-
 ```bash
 git submodule add 'https://github.com/ScatteredCognition/devcon-alp.git'
 ./devcon-alp/setup.sh
 ```
+> NOTE: You can let VSCode either locally build the image or pull a pre-built image, setup.sh will offer you the choice.
 
 ## Details
 - Uses the [docker.io/library/alpine:latest](https://hub.docker.com/_/alpine/) image as a base  
