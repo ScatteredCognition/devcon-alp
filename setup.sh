@@ -37,7 +37,7 @@ fi
 
 # Copy the new files
 if [ "$BUILD_MODE" = "1" ]; then
-    if cp -r "$BASEDIR/$CONNAME/src/" ./.devcontainer/; then
+    if cp -r "$BASEDIR/$CONNAME/src/" "$BASEDIR/.devcontainer/"; then
         echo "Copied files to .devcontainer directory"
         echo "Configured devcontainer for local build"
         echo "Please rebuild and reopen your devcontainer from VSCode"
@@ -50,7 +50,7 @@ fi
 
 # GHCR-specific override (ADDED)
 if [ "$BUILD_MODE" = "2" ]; then
-    if cp "$BASEDIR/$CONNAME/ghcr/devcontainer.json" ./.devcontainer/devcontainer.json; then
+    if cp -r "$BASEDIR/$CONNAME/ghcr/" "$BASEDIR/.devcontainer/"; then
         echo "Configured devcontainer to pull from GHCR"
         echo "Please rebuild and reopen your devcontainer from VSCode"
     else
