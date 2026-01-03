@@ -6,9 +6,9 @@ FROM docker.io/library/alpine:latest
 # create vscode user
 ## reference: https://github.com/devcontainers/images/blob/main/src/base-alpine/.devcontainer/devcontainer.json
 ## reference: https://github.com/devcontainers/features/tree/main/src/common-utils
-RUN addgroup -S wheel && \
-    addgroup -g 1000 vscode && \
-    adduser -u 1000 -G vscode vscode && \
+#RUN addgroup -S wheel
+RUN addgroup -g 1000 vscode && \
+    adduser -u 1000 -G vscode -D vscode && \
     addgroup vscode wheel && \
     groups vscode
 
@@ -33,4 +33,4 @@ RUN curl -fsSL https://github.com/1player/host-spawn/releases/latest/download/ho
     ln -s /usr/local/bin/host-spawn /usr/local/bin/hpwn
 
 # Switch to user
-#USER root
+USER vscode
